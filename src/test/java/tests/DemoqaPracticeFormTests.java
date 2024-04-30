@@ -1,75 +1,95 @@
 package tests;
 
+import com.github.javafaker.Faker;
 import org.junit.jupiter.api.Test;
 import pages.components.CheckResultInTableComponent;
 import pages.RegistrationPage;
+import java.util.Locale;
 
 public class DemoqaPracticeFormTests extends TestBase {
+
     RegistrationPage registrationPage = new RegistrationPage();
     CheckResultInTableComponent checkResultComponent = new CheckResultInTableComponent();
+    Faker faker = new Faker(new Locale("en-US"));
+    TestData testData = new TestData();
+
+
+    private final String firstName = faker.name().firstName(),
+            lastName = faker.name().lastName(),
+            email = faker.internet().emailAddress(),
+            gender = testData.getRandomGender(),
+            phone = faker.number().digits(10),
+            month = testData.getRandomMonth(),
+            dayOfMonth = testData.getRandomDayOfMonth(),
+            year = testData.getRandomYear(),
+            subject = testData.getRandomSubject(),
+            hobby = testData.getRandomHobby(),
+            address = faker.address().fullAddress(),
+            state = testData.getRandomState(),
+            city = testData.getRandomCity(state);
 
     @Test
     void successfulRegistrationFilledAllFieldsTest() {
         registrationPage.openPage()
                 .removeBanners()
-                .setFirstName("Alex")
-                .setLastName("Ivanov")
-                .setUserEmail("alexivanov20251718@gmail.com")
-                .setGender("Male")
-                .setMobilePhone("9999999901")
-                .setDateOfBirth("28", "August", "1980")
-                .setSubjects("English")
-                .setHobbie("Reading")
+                .setFirstName(firstName)
+                .setLastName(lastName)
+                .setUserEmail(email)
+                .setGender(gender)
+                .setMobilePhone(phone)
+                .setDateOfBirth(dayOfMonth, month, year)
+                .setSubject(subject)
+                .setHobbie(hobby)
                 .uploadPicture("example.jpg")
-                .setAddress("Some address 11")
-                .setState("Uttar Pradesh")
-                .setCity("Agra")
+                .setAddress(address)
+                .setState(state)
+                .setCity(city)
                 .clickSubmit();
 
-        checkResultComponent.checkResult("Student Name", "Alex Ivanov")
-                .checkResult("Student Email", "alexivanov20251718@gmail.com")
-                .checkResult("Gender", "Male")
-                .checkResult("Mobile", "9999999901")
-                .checkResult("Date of Birth", "28 August,1980")
-                .checkResult("Subjects", "English")
-                .checkResult("Hobbies", "Reading")
+        checkResultComponent.checkResult("Student Name", firstName + " " + lastName)
+                .checkResult("Student Email", email)
+                .checkResult("Gender", gender)
+                .checkResult("Mobile", phone)
+                .checkResult("Date of Birth", dayOfMonth + " " + month + "," + year)
+                .checkResult("Subjects", subject)
+                .checkResult("Hobbies", hobby)
                 .checkResult("Picture", "example.jpg")
-                .checkResult("Address", "Some address 11")
-                .checkResult("State and City", "Uttar Pradesh Agra");
+                .checkResult("Address", address)
+                .checkResult("State and City", state + " " + city);
     }
 
     @Test
     void successfulRegistrationOnlyRequiredFieldsTest() {
         registrationPage.openPage()
                 .removeBanners()
-                .setFirstName("Alex")
-                .setLastName("Ivanov")
-                .setGender("Male")
-                .setMobilePhone("9999999901")
-                .setDateOfBirth("28", "August", "1980")
+                .setFirstName(firstName)
+                .setLastName(lastName)
+                .setGender(gender)
+                .setMobilePhone(phone)
+                .setDateOfBirth(dayOfMonth, month, year)
                 .clickSubmit();
 
-        checkResultComponent.checkResult("Student Name", "Alex Ivanov")
-                .checkResult("Gender", "Male")
-                .checkResult("Mobile", "9999999901")
-                .checkResult("Date of Birth", "28 August,1980");
+        checkResultComponent.checkResult("Student Name", firstName + " " + lastName)
+                .checkResult("Gender", gender)
+                .checkResult("Mobile", phone)
+                .checkResult("Date of Birth", dayOfMonth + " " + month + "," + year);
     }
 
     @Test
     void notFilledLastNameFieldNegativeTest() {
         registrationPage.openPage()
                 .removeBanners()
-                .setFirstName("Alex")
-                .setUserEmail("alexivanov20251718@gmail.com")
-                .setGender("Male")
-                .setMobilePhone("9999999901")
-                .setDateOfBirth("28", "August", "1980")
-                .setSubjects("English")
-                .setHobbie("Reading")
+                .setFirstName(firstName)
+                .setUserEmail(email)
+                .setGender(gender)
+                .setMobilePhone(phone)
+                .setDateOfBirth(dayOfMonth, month, year)
+                .setSubject(subject)
+                .setHobbie(hobby)
                 .uploadPicture("example.jpg")
-                .setAddress("Some address 11")
-                .setState("Uttar Pradesh")
-                .setCity("Agra")
+                .setAddress(address)
+                .setState(state)
+                .setCity(city)
                 .clickSubmit();
 
         checkResultComponent.checkResultWindowNotAppeared();

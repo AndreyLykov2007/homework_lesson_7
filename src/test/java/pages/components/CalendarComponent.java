@@ -9,8 +9,9 @@ public class CalendarComponent {
 
     public void setDate(String day, String month, String year) {
         calendarInput.click();
-        $(".react-datepicker__month-select").selectOption(month);
         $(".react-datepicker__year-select").selectOption(year);
+        $(".react-datepicker__month-select").selectOption(month);
+
 
         if (day.length() > 1) {
             $(".react-datepicker__day--0" + day + ":not(.react-datepicker__day--outside-month)").click();
@@ -19,3 +20,5 @@ public class CalendarComponent {
     }
 
     }
+
+    //react-datepicker__day react-datepicker__day--009 react-datepicker__day--outside-month

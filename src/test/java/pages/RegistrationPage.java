@@ -7,12 +7,12 @@ import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
 public class RegistrationPage {
-    private SelenideElement inputFirstName = $("#firstName");
+    private final SelenideElement inputFirstName = $("#firstName");
     SelenideElement inputLastName = $("#lastName");
     SelenideElement inputUserEmail = $("#userEmail");
     SelenideElement setGender = $("#genterWrapper");
     SelenideElement setMobilePhone = $("#userNumber");
-    SelenideElement inputSubjects = $("#subjectsInput");
+    SelenideElement inputSubject = $("#subjectsInput");
     SelenideElement inputHobbies = $("#hobbiesWrapper");
     SelenideElement uploadPictureForm = $("#uploadPicture");
     SelenideElement inputAddress = $("#currentAddress");
@@ -63,8 +63,8 @@ public class RegistrationPage {
         return this;
     }
 
-    public RegistrationPage setSubjects(String value) {
-        inputSubjects.setValue(value).pressEnter();
+    public RegistrationPage setSubject(String value) {
+        inputSubject.setValue(value).pressEnter();
         return this;
     }
 
