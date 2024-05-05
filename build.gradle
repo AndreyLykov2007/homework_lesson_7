@@ -25,6 +25,7 @@ compileJava {
 }
 
 test {
+    systemProperty "chroneoptions.prefs","intl.accept_languages=en"
     systemProperties += System.properties
     useJUnitPlatform()
 }

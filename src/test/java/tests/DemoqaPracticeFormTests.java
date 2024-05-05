@@ -4,6 +4,7 @@ import com.github.javafaker.Faker;
 import org.junit.jupiter.api.Test;
 import pages.components.CheckResultInTableComponent;
 import pages.RegistrationPage;
+
 import java.util.Locale;
 
 public class DemoqaPracticeFormTests extends TestBase {
@@ -17,16 +18,18 @@ public class DemoqaPracticeFormTests extends TestBase {
     private final String firstName = faker.name().firstName(),
             lastName = faker.name().lastName(),
             email = faker.internet().emailAddress(),
-            gender = testData.getRandomGender(),
+            gender = faker.options().option("Male", "Female", "Other"),
             phone = faker.number().digits(10),
             month = testData.getRandomMonth(),
             dayOfMonth = testData.getRandomDayOfMonth(),
             year = testData.getRandomYear(),
-            subject = testData.getRandomSubject(),
-            hobby = testData.getRandomHobby(),
+            subject = faker.options().option("Chemistry", "Computer Science", "Economics", "History", "Hindi", "Arts", "Commerce", "Civics", "Physics",
+                    "Biology", "Accounting", "Maths", "Social Studies"),
+            hobby = faker.options().option("Sports", "Reading", "Music"),
             address = faker.address().fullAddress(),
-            state = testData.getRandomState(),
+            state = faker.options().option("NCR", "Uttar Pradesh", "Haryana", "Rajasthan"),
             city = testData.getRandomCity(state);
+
 
     @Test
     void successfulRegistrationFilledAllFieldsTest() {
