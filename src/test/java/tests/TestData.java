@@ -1,7 +1,6 @@
 package tests;
 
 import com.github.javafaker.Faker;
-
 import java.text.DateFormatSymbols;
 import java.util.Calendar;
 import java.util.Date;
@@ -25,6 +24,7 @@ public class TestData {
         int month = calendar.get(Calendar.MONTH);
         return new DateFormatSymbols(Locale.ENGLISH).getMonths()[month];
     }
+
 
     public String getRandomYear() {
         calendar.setTime(date);
